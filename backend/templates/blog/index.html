@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Blog Posts</h1>
+{% if posts %}
+<ul>
+    {% for post in posts %}
+    <li>
+        <h2><a href="{% url 'blog:post_detail' slug=post.slug %}">{{ post.title }}</a></h2>
+        <p>{{ post.excerpt|truncatewords:30 }}</p>
+        <p><small>Published on: {{ post.published|date:"F d, Y" }} by {{ post.author }}</small></p>
+    </li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>No posts are available.</p>
+{% endif %}
+{% endblock %}
