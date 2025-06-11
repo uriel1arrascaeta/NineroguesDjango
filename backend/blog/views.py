@@ -1,3 +1,5 @@
+from .serializers import PostSerializer  # Asumiendo que creaste serializers.py
+from rest_framework import generics
 from django.shortcuts import render
 from .models import Post
 from django.views.generic import TemplateView
@@ -23,3 +25,14 @@ class PostDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         current_slug = self.kwargs['slug']
         return context
+
+
+class PostListAPIView(generics.ListAPIView):
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
+
+
+class PostDetailAPIView(generics.RetrieveAPIView):
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
+    lookup_field = 'slug'

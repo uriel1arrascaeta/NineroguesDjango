@@ -50,5 +50,5 @@ class Comment(models.Model):
     class Meta:
         ordering = ('publish',)
 
-        def __str__(self):
-            return f"Comment by {self.name} on {self.post}"
+    def __str__(self):
+        return f"Comment by {self.name} on {self.post}"
