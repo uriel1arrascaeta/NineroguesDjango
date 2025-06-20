@@ -4,11 +4,25 @@
 <h1>Blog Posts</h1>
 {% if posts %}
 <ul>
+
     {% for post in posts %}
-    <li>
-        <h2><a href="{% url 'blog:post_detail' slug=post.slug %}">{{ post.title }}</a></h2>
-        <p>{{ post.excerpt|truncatewords:30 }}</p>
-        <p><small>Published on: {{ post.published|date:"F d, Y" }} by {{ post.author }}</small></p>
+    <li class="mb-4">
+        <div class="row">
+            {% if post.image %}
+            <div class="col-md-4">
+                <a href="{% url 'django_blog:post_detail' slug=post.slug %}">
+                    <img src="{{ post.image.url }}" class="img-fluid rounded mb-2" alt="{{ post.title }}"
+                        style="max-height: 200px; object-fit: cover;">
+                </a>
+            </div>
+            {% endif %}
+
+            <div class="col-md-{% if post.image %}8{% else %}12{% endif %}">
+                <h2><a href="{% url 'django_blog:post_detail' slug=post.slug %}">{{ post.title }}</a></h2>
+                <p>{{ post.excerpt|truncatewords:30 }}</p>
+                <p><small>Publicado el: {{ post.published_at|date:"F d, Y" }} por {{ post.author }}</small></p>
+            </div>
+        </div>
     </li>
     {% endfor %}
 </ul>

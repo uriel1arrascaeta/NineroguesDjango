@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Confirm Deletion" %}{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-body">
+                <h2 class="card-title text-center mb-4">{% trans "Delete Post" %}</h2>
+                <p>
+                    {% blocktrans with post_title=post.title %}Are you sure you want to delete the post: <strong>"{{
+                        post_title }}"</strong>?{% endblocktrans %}
+                </p>
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-center mt-4">
+                        <button class="btn btn-danger" type="submit">{% trans "Yes, Delete" %}</button>
+                        <a href="{% url 'django_blog:post_detail' slug=post.slug %}" class="btn btn-secondary">{% trans
+                            "Cancel" %}</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
