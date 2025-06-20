@@ -3,21 +3,15 @@ from pathlib import Path
 import os
 import environ
 env = environ.Env()
-# Read .env file if it exists.
-# The .env file should be in the same directory as manage.py (BASE_DIR.parent)
-# or in the BASE_DIR (backend directory).
-# This change makes it look in the project root (parent of BASE_DIR).
-BASE_DIR = Path(__file__).resolve().parent.parent  # backend directory
-PROJECT_ROOT = BASE_DIR.parent  # NineroguesDjango-main directory
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+PROJECT_ROOT = BASE_DIR.parent
 env.read_env(os.path.join(PROJECT_ROOT, '.env'))
 
 
 DEBUG = env.bool('DEBUG', default=False)
 SECRET_KEY = env('SECRET_KEY')
 ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=['localhost', '127.0.0.1'])
-
-
-# Application definition
 
 
 INSTALLED_APPS = [
@@ -32,6 +26,8 @@ INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
     'corsheaders',
     'rest_framework',
+    'crispy_forms',
+    'crispy_bootstrap5',
 ]
 
 MIDDLEWARE = [
@@ -72,7 +68,7 @@ WSGI_APPLICATION = 'core.wsgi.application'
 
 
 DATABASES = {
-    "default": env.db("DATABASE_URL", default="postgres:///Santori")
+    "default": env.db("DATABASE_URL", default="postgres:///rivelle_co_db")
 }
 
 
@@ -116,3 +112,6 @@ MEDIA_ROOT = PROJECT_ROOT / 'mediafiles'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 LOGIN_URL = 'accounts:login'
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = "bootstrap5"

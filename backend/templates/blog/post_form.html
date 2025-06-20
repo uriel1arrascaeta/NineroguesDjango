@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% load i18n %}
+
+{% block title %}
+{% if object %}
+{% trans "Edit Post" %}
+{% else %}
+{% trans "Create New Post" %}
+{% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-body">
+                <h2 class="card-title text-center mb-4">
+                    {% if object %}
+                    {% trans "Edit Post" %}
+                    {% else %}
+                    {% trans "Create New Post" %}
+                    {% endif %}
+                </h2>
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ form.title|as_crispy_field }}
+                    <div class="mb-3"> {# Envolver el campo de categoría y el enlace #}
+                        {{ form.category|as_crispy_field }}
+                        {% url 'django_blog:category_create' as category_create_url %}
+                        <small class="form-text text-muted">
+                            {% blocktrans %}Can't find the category? <a href="{{ category_create_url }}"
+                                target="_blank">Create a new one here</a>. (Refresh this page after creating it to see
+                            it in the list){% endblocktrans %}
+                        </small>
+                    </div>
+                    {{ form.excerpt|as_crispy_field }}
+                    {{ form.content|as_crispy_field }}
+                    {{ form.image|as_crispy_field }}
+                    {{ form.status|as_crispy_field }}
+                    <div class="d-grid gap-2 mt-4">
+                        <button class="btn btn-primary" type="submit">
+                            {% if object %}
+                            {% trans "Update Post" %}
+                            {% else %}
+                            {% trans "Publish Post" %}
+                            {% endif %}
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
