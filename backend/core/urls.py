@@ -15,9 +15,11 @@ urlpatterns = [
     path('django-blog/', include('blog.urls', namespace='django_blog')),
     path('accounts/', include('accounts.urls')),
 
-    re_path(r'^.*$', TemplateView.as_view(template_name='index.html'), name='app'),
 ]
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL,
                           document_root=settings.MEDIA_ROOT)
+
+urlpatterns.append(
+    re_path(r'^.*$', TemplateView.as_view(template_name='index.html'), name='app'))
