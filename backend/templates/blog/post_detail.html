@@ -1,5 +1,9 @@
 {% extends "base.html" %}
 {% load i18n %}
+{% load static %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'css/blog.css' %}">{% endblock %}
 
 {% block title %}{{ post.title }}{% endblock %}
 

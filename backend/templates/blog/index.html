@@ -1,5 +1,9 @@
 {% extends "base.html" %}
 {% load i18n %}
+{% load static %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'css/blog.css' %}">{% endblock %}
 
 {% block content %}
 <h1>{% trans "Blog Posts" %}</h1>
@@ -23,6 +27,7 @@
                 <p>{{ post.excerpt|truncatewords:30 }}</p>
                 <p><small>{% trans "Publicado el:" %} {{ post.published_at|date:"F d, Y" }} {% trans "por" %} {{
                         post.author }}</small></p>
+
             </div>
         </div>
     </li>
